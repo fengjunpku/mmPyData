@@ -12,8 +12,8 @@ def mmStockTodayAll():
   df = ts.get_today_all()
   df.to_csv('today.csv',encoding='utf-8')
 
-def mmReadData():
-  return pd.read_csv('today.csv')
+def mmReadData(datafile):
+  return pd.read_csv(datafile)
 
 if __name__=="__main__":
   #mmStockTodayAll()
@@ -21,9 +21,9 @@ if __name__=="__main__":
   #data = data.ix[data.name=='小康股份',['code']]
   #index = list(data.index)[0]
   #print data.code[index]
-  line = mmReadData()
+  line = mmReadData('today.csv')
   #line = line.ix[line.name=='万科']
-  print line.name
+  print line.loc[:,['code','name']]
   #data = mmStockMonth('sh')
   #data = mmStockTodayAll()
   #data = data.ix[data.name=='小康股份']
