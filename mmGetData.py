@@ -15,6 +15,18 @@ def mmStockTodayAll():
 def mmReadData(datafile):
   return pd.read_csv(datafile)
 
+def mmSaveToRoot(data,rootfile):
+  file = ROOT.TFile(rootfile,'RECREATE')
+  graph = ROOT.TGraph()
+  length = len(data)
+  i = 0
+  while i<length:
+    graph.Setpoint(i,i+1,data[length-i])
+    i = i+1
+  file.cd()
+  graph.Write()
+  file.Close()
+
 if __name__=="__main__":
   #mmStockTodayAll()
   #data = mmReadData()
