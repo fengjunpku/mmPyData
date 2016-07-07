@@ -2,6 +2,7 @@
 import tushare as ts
 import ROOT
 import pandas as pd
+import numpy as np
 import datetime
 def mmStockMonth(StcokCode):
   todayNow = str(datetime.date.today())
@@ -17,25 +18,53 @@ def mmReadData(datafile):
 
 def mmSaveToRoot(data,rootfile):
   file = ROOT.TFile(rootfile,'RECREATE')
+  treeName = rootfile.split('.')[0]
+  tree = ROOT.TTree(treeName,treeName)
   graph = ROOT.TGraph()
-  length = len(data)
+  bdate = np.zeros(1,dtype=int)
+  bval = np.zeros(1,dtype=float)
+  tree.Branch('date',bdate,'data/I')
+  tree.Branch('open',bval,'open/D')
+  data = data.sort_values(['date'],ascending=False)
+  col_date = data['date']
+  col_open = data['open']
+  size = len(col_date)
   i = 0
-  while i<length:
-    graph.Setpoint(i,i+1,data[length-i])
+  while i < size:
+    bdate[0] = int(col_date[i].replace('-',''))
+    bval[0] = col_open[i]
+    graph.SetPoint(i,bdate[0],bval[0])
+    tree.Fill()
     i = i+1
-  file.cd()
+  # for item in data.columns:
+  #   if item == 'date':
+  #     print 1
+  #   else:
+  #     print 0
+  #print data.sort(columns='date').head(1)
+  #file.cd()
+  tree.Write()
   graph.Write()
   file.Close()
 
+def mmHistory(stockcode,start='',end=''):
+  #data = ts.get_hist_data(stockcode)
+  #data.to_csv('wuliangye.csv')
+  data = mmReadData('wuliangye.csv')
+  mmSaveToRoot(data,'x.root')
+
 if __name__=="__main__":
+  mmHistory('000858')# 858 means 五 粮 液
   #mmStockTodayAll()
   #data = mmReadData()
   #data = data.ix[data.name=='小康股份',['code']]
   #index = list(data.index)[0]
   #print data.code[index]
-  line = mmReadData('today.csv')
+  #line = mmReadData('today.csv')
   #line = line.ix[line.name=='万科']
-  print line.loc[:,['code','name']]
+  #data = line.ix[line.name=='五 粮 液']
+  #print data
+  #print line.loc[:,['code','name']]
   #data = mmStockMonth('sh')
   #data = mmStockTodayAll()
   #data = data.ix[data.name=='小康股份']
