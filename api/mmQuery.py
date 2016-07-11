@@ -6,11 +6,41 @@ sys.path.append(path)
 import web
 import json
 
-urls = ('/', 'mmQuery',)
+urls = ('/', 'mmQuery',
+        '/draw','mmDraw',
+        '/draw2','mmDraw2')
 
 class mmQuery:
   def POST(self):
     data = web.input()
-    return data['page']
+    if data['page']=='home':
+      content = "<iframe width=100% height=400 src=http://thismac/query/draw2/></iframe>"
+      return content
+    else:
+      return data['page']
+
+class mmDraw:
+  def GET(self):
+    content = "<script src=https://root.cern.ch/js/latest/scripts/JSRootCore.js?gui></script>"
+    content += "<div id=simpleGUI path=../data/ files=hist.root>loading scripts ...</div>"
+    return content
+
+class mmDraw2:
+  def GET(self):
+    content = '''
+    <script src="https://root.cern.ch/js/latest/scripts/JSRootCore.min.js"></script>
+    <script type='text/javascript'>
+     // absolute file path can be used as well
+     var filename = "../data/hist.root";
+     JSROOT.OpenFile(filename, function(file) {
+        file.ReadObject("h1;1", function(obj) {
+           JSROOT.draw("drawing", obj, "");
+        });
+     });
+    </script>
+    <div id="drawing" style="width:100%; height:100%"></div>
+    '''
+    return content
+    
 
 application = web.application(urls, globals()).wsgifunc()
