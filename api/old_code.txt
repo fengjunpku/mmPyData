@@ -1,0 +1,9 @@
+### middle.php
+<?php
+  shell_exec('source /Users/fengjun/PySys27/bin/activate');
+  $output = shell_exec('python ./test.py');
+  echo $output;
+?>
+
+### test.py
+print "test py"

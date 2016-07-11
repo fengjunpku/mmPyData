@@ -31,7 +31,7 @@ function loading(){
 
 function jump(target){
   //ajax
-  $.get('http://thismac:5000',{'page':target},function(data)
+  $.post('./query/',{'page':target},function(data)
   {
     $('.jumbotron').html(data);
     //自动生成目录
