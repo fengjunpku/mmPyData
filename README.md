@@ -11,6 +11,9 @@ Data analysis with python
 miaomiaoxiong
 # History
 20160706 Created
+
 20160711 用ajax请求python处理，两条思路：
+
 	1. apache处理静态页面，webpy直接处理动态请求；问题：占了80端口与apache冲突，不用80口有跨域问题。试着用php作为媒介。
+
 	2. apache处理静态页面，web.py以mod_wsgi方式部署。
