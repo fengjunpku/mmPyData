@@ -25,7 +25,8 @@ def mmSaveToRoot(data,rootfile):
   bval = np.zeros(1,dtype=float)
   tree.Branch('date',bdate,'data/I')
   tree.Branch('open',bval,'open/D')
-  data = data.sort_values(['date'],ascending=False)
+	#data = data.sort_values(['date'],ascending=False)
+  data = data.sort(['date'],ascending=False)
   col_date = data['date']
   col_open = data['open']
   size = len(col_date)
