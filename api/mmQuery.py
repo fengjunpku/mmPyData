@@ -7,25 +7,21 @@ import web
 import json
 
 urls = ('/', 'mmQuery',
-        '/draw','mmDraw',
-        '/draw2','mmDraw2')
+        '/draw','mmDraw',)
 
 class mmQuery:
   def POST(self):
     data = web.input()
     if data['page']=='home':
-      content = "<iframe width=100% height=400 src=http://thismac/query/draw2/></iframe>"
+      content = '''
+        <iframe width="100%" height="400" src="http://thismac/query/draw">
+        </iframe>
+      '''
       return content
     else:
       return data['page']
 
 class mmDraw:
-  def GET(self):
-    content = "<script src=https://root.cern.ch/js/latest/scripts/JSRootCore.js?gui></script>"
-    content += "<div id=simpleGUI path=../data/ files=hist.root>loading scripts ...</div>"
-    return content
-
-class mmDraw2:
   def GET(self):
     content = '''
     <script src="https://root.cern.ch/js/latest/scripts/JSRootCore.min.js"></script>
