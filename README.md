@@ -19,3 +19,4 @@ miaomiaoxiong
 	2. apache处理静态页面，web.py以mod_wsgi方式部署。
 
 * 20160712 初步跑通流程：存root结果，经过apache+mod_wsgi+web.py+JSROOT展示
+* 20160714 at gansu
