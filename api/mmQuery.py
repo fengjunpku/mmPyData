@@ -10,16 +10,36 @@ urls = ('/', 'mmQuery',
         '/draw','mmDraw',)
 
 class mmQuery:
+  def __init__(self):
+    self.__frame = '''
+    <iframe width="100%" height="400" src="http://thismac/query/draw">
+    </iframe>
+    '''
+    self.__grid_head = '''
+    <div class="row">
+    '''
+    self.__row_head = '''
+    <div class="col-md-6">
+    '''
   def POST(self):
     data = web.input()
     if data['page']=='home':
-      content = '''
-        <iframe width="100%" height="400" src="http://thismac/query/draw">
-        </iframe>
-      '''
-      return content
+      return self.mmGrid(4)
     else:
       return data['page']
+
+  def mmGrid(self,num):
+    if num==1:
+      return self.__frame
+    else:
+      sgrid = self.__grid_head
+      for x in range(num):
+        sgrid += self.__row_head
+        sgrid += self.__frame
+        sgrid += "<h3>"+str(x+1)+"</h3>"
+        sgrid += "</div>"
+      sgrid += "</div>"
+      return sgrid
 
 class mmDraw:
   def GET(self):
