@@ -21,10 +21,16 @@ class mmQuery:
     self.__row_head = '''
     <div class="col-md-6">
     '''
+    self.__row_temp = '''
+    $def with (content)
+    <div class="col-md-6">
+      $content
+    </div>
+    '''
   def POST(self):
     data = web.input()
     if data['page']=='home':
-      return self.mmGrid(4)
+      return self.mmtest()
     else:
       return data['page']
 
@@ -40,6 +46,11 @@ class mmQuery:
         sgrid += "</div>"
       sgrid += "</div>"
       return sgrid
+
+  def mmtest(self):
+    template = "$def with (name)\nHello $name"
+    result = web.template.Template(template)
+    return result('xxx')
 
 class mmDraw:
   def GET(self):
@@ -60,3 +71,7 @@ class mmDraw:
     
 
 application = web.application(urls, globals()).wsgifunc()
+
+if __name__=="__main__":
+  a = mmQuery()
+  print a.mmtest()
