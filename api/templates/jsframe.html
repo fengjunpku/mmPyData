@@ -1,8 +1,13 @@
-$def with (num)
-<div class="row">
-  <div class="col-md-12">
-    <iframe width="100%" height="400" src="http://thismac/query/draw">
-    </iframe>
-    <h3>$num</h3>
+$def with (num,urls)
+$if num>1:
+  <div class="row">
+  $for i in range(0,num):
+    <div class="col-md-6">
+      <iframe width="100%" height="400" src="http://thismac/query/draw$urls[i]">
+      </iframe>
+      <em>$(i+1)</em>
+    </div>
   </div>
-</div>
+$else:
+  <iframe width="100%" height="400" src="http://thismac/query/draw">
+  </iframe>

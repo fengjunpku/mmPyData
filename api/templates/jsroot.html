@@ -1,0 +1,11 @@
+$def with (id)
+<script src="https://root.cern.ch/js/latest/scripts/JSRootCore.min.js"></script>
+<script type='text/javascript'>
+ var filename = "../data/"+"$id"+".root";
+ JSROOT.OpenFile(filename, function(file) {
+    file.ReadObject("h1;1", function(obj) {
+       JSROOT.draw("drawing", obj, "");
+    });
+ });
+</script>
+<div id="drawing" style="width:100%; height:100%">$id</div>
