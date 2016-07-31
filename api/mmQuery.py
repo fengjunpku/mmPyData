@@ -9,6 +9,9 @@ import json
 urls = ('/', 'mmQuery',
         '/draw','mmDraw',)
 
+##
+mmRender = web.template.render('templates')
+##
 class mmQuery:
   def __init__(self):
     self.__frame = '''
@@ -47,10 +50,12 @@ class mmQuery:
       sgrid += "</div>"
       return sgrid
 
-  def mmtest(self):
-    template = "$def with (name)\nHello $name"
-    result = web.template.Template(template)
-    return result('xxx')
+  def GET(self):
+    #template = "$def with (name)\nHello $name"
+    #result = web.template.Template(template)
+    #return result('xxx')
+    return mmRender.jsframe(3)
+
 
 class mmDraw:
   def GET(self):
@@ -74,4 +79,4 @@ application = web.application(urls, globals()).wsgifunc()
 
 if __name__=="__main__":
   a = mmQuery()
-  print a.mmtest()
+  print type(a.GET())
