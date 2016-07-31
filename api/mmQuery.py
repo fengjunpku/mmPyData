@@ -8,53 +8,17 @@ import json
 
 urls = ('/', 'mmQuery',
         '/draw','mmDraw',)
-
-##
-mmRender = web.template.render('templates')
+##使用绝对路径！！！
+root = os.path.dirname(__file__)   
+render = web.template.render(os.path.join(root,'templates/'))
 ##
 class mmQuery:
-  def __init__(self):
-    self.__frame = '''
-    <iframe width="100%" height="400" src="http://thismac/query/draw">
-    </iframe>
-    '''
-    self.__grid_head = '''
-    <div class="row">
-    '''
-    self.__row_head = '''
-    <div class="col-md-6">
-    '''
-    self.__row_temp = '''
-    $def with (content)
-    <div class="col-md-6">
-      $content
-    </div>
-    '''
   def POST(self):
     data = web.input()
     if data['page']=='home':
-      return self.mmtest()
+      return render.jsframe(3)
     else:
       return data['page']
-
-  def mmGrid(self,num):
-    if num==1:
-      return self.__frame
-    else:
-      sgrid = self.__grid_head
-      for x in range(num):
-        sgrid += self.__row_head
-        sgrid += self.__frame
-        sgrid += "<h3>"+str(x+1)+"</h3>"
-        sgrid += "</div>"
-      sgrid += "</div>"
-      return sgrid
-
-  def GET(self):
-    #template = "$def with (name)\nHello $name"
-    #result = web.template.Template(template)
-    #return result('xxx')
-    return mmRender.jsframe(3)
 
 
 class mmDraw:
@@ -79,4 +43,4 @@ application = web.application(urls, globals()).wsgifunc()
 
 if __name__=="__main__":
   a = mmQuery()
-  print type(a.GET())
+  print a.mmtest()
