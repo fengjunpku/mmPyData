@@ -1,5 +1,6 @@
 # Discription
 Data analysis with python
+
 # Framework
 * web server : apache+mod_wsgi+web.py
 * data source : tushare
@@ -7,8 +8,12 @@ Data analysis with python
 * data format : .root
 * data viewer : jsROOT
 
+# Deployment
+1. apache2+mod_wsgi
+   add `WSGIScriptAlias /query /where/your/mmPyData/api/mmQuery.py` to httpd conf
 # Author
 miaomiaoxiong
+
 # History
 * 20160706 Created
 
