@@ -15,11 +15,13 @@ render = web.template.render(os.path.join(root,'templates/'))
 class mmQuery:
   def POST(self):
     data = web.input()
+    ex_urls=["?id=ma5","?id=close"]
     if data['page']=='home':
-      urls=["?id=ma5","?id=close"]
-      return render.jsframe(len(urls),urls)
+      return render.jsframe(ex_urls)
+    elif data['page']=='about':
+      return render.about()
     else:
-      return data['page']
+      return "Miao: Not Found!"
 
 class mmDraw:
   def GET(self):
@@ -29,5 +31,4 @@ class mmDraw:
 application = web.application(urls, globals()).wsgifunc()
 
 if __name__=="__main__":
-  a = mmQuery()
-  print a.mmtest()
+  pass

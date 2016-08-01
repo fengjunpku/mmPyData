@@ -1,8 +1,8 @@
-$(document).ready(function () {
-  $('[data-toggle="offcanvas"]').click(function () {
-    $('.row-offcanvas').toggleClass('active')
-  });
-});
+// $(document).ready(function () {
+//   $('[data-toggle="offcanvas"]').click(function () {
+//     $('.row-offcanvas').toggleClass('active')
+//   });
+// });
 var lasturlpar='';
 //获取url中的参数
 function geturlpar(){
